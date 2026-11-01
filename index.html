@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="AgentBridge 연구협업 보완 매칭 추가 시연본" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>AgentBridge · 연구협업 보완 매칭 시연</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#workspace">본문으로 바로가기</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="AgentBridge 시연 첫 화면">
+        <span class="brand-mark" aria-hidden="true">AB</span>
+        <span><strong>AgentBridge</strong><small>Research collaboration demo</small></span>
+      </a>
+      <div class="header-actions">
+        <span class="demo-chip">추가 시연본</span>
+        <button class="button ghost compact" id="reset-all" type="button">전체 초기화</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow">AGENTBRIDGE COLLABORATION FLOW</p>
+      <h1 id="hero-title">내가 담당할 일과<br /><em>팀에 필요한 역량</em>을 함께 봅니다.</h1>
+      <p>실제 공고·RFP 3건의 요구역량을 기준으로, 본인의 역할을 정하고 빈자리를 보완할 합성 후보를 비교합니다.</p>
+    </div>
+    <aside class="hero-note" aria-label="시연 안내">
+      <strong>기존 최종본을 보완한 별도 시연입니다.</strong>
+      <span>후보 50명은 원본 공개 시연용 합성 데이터이며, 실제 인물이 아닙니다.</span>
+    </aside>
+  </section>
+
+  <nav class="steps" aria-label="시연 순서">
+    <ol>
+      <li><span>01</span>공고 선택</li>
+      <li><span>02</span>내 역할 설정</li>
+      <li><span>03</span>역량 공백 확인</li>
+      <li><span>04</span>후보 비교·선택</li>
+      <li><span>05</span>팀 결과 저장</li>
+    </ol>
+  </nav>
+
+  <main id="workspace" class="workspace" tabindex="-1">
+    <section class="panel" aria-labelledby="announcement-title">
+      <div class="panel-heading">
+        <div><p class="step-kicker">STEP 01</p><h2 id="announcement-title">공고를 선택하세요.</h2></div>
+        <span class="source-badge">실제 공고·RFP 메타데이터</span>
+      </div>
+      <div id="announcement-list" class="announcement-grid" role="radiogroup" aria-label="공고 선택"></div>
+      <div id="announcement-detail" class="announcement-detail"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="roles-title">
+      <div class="panel-heading">
+        <div><p class="step-kicker">STEP 02</p><h2 id="roles-title">요구역량별로 내 역할을 정하세요.</h2></div>
+        <button class="text-button" id="roles-partner" type="button">모두 협업자 필요로 설정</button>
+      </div>
+      <p class="section-intro">역할을 바꾸면 이전에 선택한 후보는 초기화됩니다. ‘미정’과 ‘협업자 필요’는 모두 팀의 공백으로 분석합니다.</p>
+      <div id="role-list" class="role-list"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="gaps-title">
+      <div class="panel-heading">
+        <div><p class="step-kicker">STEP 03</p><h2 id="gaps-title">현재 역량 공백</h2></div>
+      </div>
+      <div id="gap-summary" aria-live="polite"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="candidates-title">
+      <div class="panel-heading">
+        <div><p class="step-kicker">STEP 04</p><h2 id="candidates-title">보완 후보의 근거를 비교하세요.</h2></div>
+        <div class="selection-count" id="selection-count" aria-live="polite">0 / 2명 선택</div>
+      </div>
+      <p class="section-intro">점수 대신 직접 수행·인접 전이·공동연구자 경유 등의 근거를 표시합니다. 후보는 최대 2명까지 선택할 수 있습니다.</p>
+      <div id="candidate-list" class="candidate-grid" tabindex="-1"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="team-title">
+      <div class="panel-heading">
+        <div><p class="step-kicker">STEP 05</p><h2 id="team-title">팀 충족 상태</h2></div>
+      </div>
+      <div id="team-summary" aria-live="polite"></div>
+    </section>
+
+    <section class="download-panel" aria-labelledby="download-title">
+      <div><p class="step-kicker">RESULT</p><h2 id="download-title">회의에서 계속 검토할 수 있게 저장하세요.</h2><p>Markdown 파일에 공고, 내 역할, 선정 후보, 팀 충족 상태가 함께 정리됩니다.</p></div>
+      <button class="button primary" id="download-md" type="button">Markdown 결과 다운로드</button>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><strong>AgentBridge 추가 시연본</strong> · 공고는 공개 메타데이터를 요약했고, 후보와 연구성과는 모두 합성 데이터입니다.</p>
+    <p>선택 내용은 현재 브라우저 탭의 sessionStorage에만 보관됩니다.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
